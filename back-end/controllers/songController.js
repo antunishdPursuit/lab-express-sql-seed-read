@@ -5,7 +5,7 @@ const { checkBoolean, checkName, checkArtist,} = require("../validations/checkSo
 
 // INDEX
 songs.get("/", async (req, res) => {
-    const allSongs = await getAllSongs();
+    const allSongs = await getAllSongs(req.query);
     if (allSongs[0]) {
       res.status(200).json(allSongs);
     } else {
