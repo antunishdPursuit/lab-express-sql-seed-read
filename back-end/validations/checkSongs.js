@@ -1,9 +1,16 @@
 const checkName = (req, res, next) => {
-    if (req.body.name) {
-      console.log("name is ok");
+    if (req.body.name && typeof req.body.name === "string") {
       next()
     } else {
-      res.status(400).json({ error: "Name is required" });
+      res.status(400).json({ error: `${req.body.name} is not a valid Name` });
+    }
+  };
+
+  const checkArtist = (req, res, next) => {
+    if (req.body.artist && typeof req.body.artist === "string") {
+      next()
+    } else {
+      res.status(400).json({ error: `${req.body.artist} is not a valid Artist` });
     }
   };
   
@@ -12,13 +19,13 @@ const checkName = (req, res, next) => {
     if (
       is_favorite == "true" ||
       is_favorite == "false" ||
-      is_favorite == undefined
+      is_favorite == undefined ||
+      typeof is_favorite === "boolean"
     ) {
-      console.log("is_favorite is ok");
       next();
     } else {
-      res.status(400).json({ error: "is_favorite must be a boolean value" });
+      res.status(400).json({ error: `${req.body.is_favorite} must be a boolean value` });
     }
   };
   
-  module.exports = { checkBoolean, checkName };
+  module.exports = { checkBoolean, checkName, checkArtist };
